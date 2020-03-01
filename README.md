@@ -1,3 +1,7 @@
+Found ocrmypdf-auto but unfortunately it didn't work for arm architecture. I adapted the Dockerfile and now it does.
+
+
+
 ![ocrmypdf-auto logo](https://raw.githubusercontent.com/cmccambridge/ocrmypdf-auto/master/media/logo.png)
 
 # cmccambridge/ocrmypdf-auto
