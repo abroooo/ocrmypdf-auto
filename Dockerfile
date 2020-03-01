@@ -1,24 +1,42 @@
-FROM ubuntu:18.04
+FROM balenalib/armv7hf-ubuntu-python:latest
+
+#FROM balenalib/raspberry-pi2-ubuntu:latest
+#FROM resin/rpi-raspbian:latest
+#FROM ubuntu:18.04
 
 RUN apt-get update && \
     apt-get install -y --no-install-recommends \
         ghostscript \
         gosu \
-        python3-venv \
-        python3-pip \
+#        python3-venv \
+ #       python3-pip \
         qpdf \
         tesseract-ocr \
         tesseract-ocr-eng \
         tesseract-ocr-osd \
         unpaper \
+        build-essential \
+#       python-dev python-setuptools \
+#        libffi-dev \
+#        python3-dev python3-setuptools \
+        libjpeg8-dev zlib1g-dev \
     && rm -rf /var/lib/apt/lists/*
 
+RUN apt-get update && apt-get install -y --no-install-recommends python3-venv \
+       python3-pip 
+RUN apt-get update && apt-get install -y --no-install-recommends \
+python3-dev mupdf libffi-dev
+
+RUN apt-get update && apt-get install -y --no-install-recommends \
+libmupdf-dev mupdf mupdf-tools
+RUN apt-get update && apt-get install -y --no-install-recommends \
+swig ocrmypdf
 ENV LANG=C.UTF-8
 
 RUN python3 -m venv --system-site-packages /appenv
 
 RUN . /appenv/bin/activate; \
-    pip install --upgrade pip
+    pip3 install --upgrade pip
 
 # Pull in ocrmypdf via requirements.txt and install pinned version
 COPY src/requirements.txt /app/
